@@ -11,7 +11,15 @@ from PyQt5.QtWidgets import QFileDialog, QLineEdit, QRadioButton, QButtonGroup
 import requests
 from requests import get
 from geo_api_1 import Ui_MainWindow, examplePopup, ExamplePopup, Example
-
+try:
+    path_ = open('path.txt', encoding="utf-8")
+    path_.close()
+except Exception:
+    absoluteFilePath = os.path.abspath(__file__)
+    path = os.path.split(absoluteFilePath)[0]
+    path_ = open('path.txt', "w", encoding="utf-8")
+    path_.write(path)
+    path_.close()
 
 
 
@@ -292,6 +300,7 @@ class mywindow(QtWidgets.QMainWindow, QtWidgets.QWidget):
         if direct:
             path_ = open('path.txt', "w", encoding="utf-8")
             path_.write(direct)
+            path_.close()
             self.fileModel = QtWidgets.QFileSystemModel(self)
             self.fileModel.setRootPath(direct)
             self.fileModel.setFilter(QtCore.QDir.NoDotAndDotDot | QtCore.QDir.Files)
