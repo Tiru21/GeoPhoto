@@ -10,16 +10,8 @@ from PyQt5.QtWidgets import QWidget, QLabel, QInputDialog, QPushButton, QApplica
 from PyQt5.QtWidgets import QFileDialog, QLineEdit, QRadioButton, QButtonGroup
 import requests
 from requests import get
-from geo_api_1 import Ui_MainWindow, examplePopup, ExamplePopup, Example
-try:
-    path_ = open('path.txt', encoding="utf-8")
-    path_.close()
-except Exception:
-    absoluteFilePath = os.path.abspath(__file__)
-    path = os.path.split(absoluteFilePath)[0]
-    path_ = open('path.txt', "w", encoding="utf-8")
-    path_.write(path)
-    path_.close()
+from geo_api_1 import Ui_MainWindow#, examplePopup, ExamplePopup, Example
+
 
 
 
@@ -63,19 +55,22 @@ class mywindow(QtWidgets.QMainWindow, QtWidgets.QWidget):
         self.ui.checkBox04.stateChanged.connect(self.click04)
         self.ui.checkBox6_10.stateChanged.connect(self.click6_10)
         self.ui.checkBox110.stateChanged.connect(self.click110)
-        self.ui.action.triggered.connect(self.click)
-        self.ui.action_2.triggered.connect(self.bbttnn)
-        self.ui.action_3.triggered.connect(self.btn3)
-        self.ui.group.buttonClicked.connect(self._on_radio_button_clicked)
+        self.ui.action_4.triggered.connect(self.click)
+        self.ui.action_5.triggered.connect(self.bbttnn)
+        self.ui.action_6.triggered.connect(self.btn3)
+        self.ui.rbtn1.clicked.connect(self._on_radio_button_clicked_1)
+        self.ui.rbtn2.clicked.connect(self._on_radio_button_clicked_2)
+        self.ui.rbtn3.clicked.connect(self._on_radio_button_clicked_3)
         self.map_type = "sat,skl"
     
-    def _on_radio_button_clicked(self, button):
-        if "Схема" == button.text():
-            self.map_type = "map"
-        elif "Спутниk" in button.text():
-            self.map_type = "sat"
-        else:
-            self.map_type = "sat,skl"
+    def _on_radio_button_clicked_1(self):
+        self.map_type = "map"
+        
+    def _on_radio_button_clicked_2(self):
+        self.map_type = "sat"
+
+    def _on_radio_button_clicked_3(self):
+        self.map_type = "sat,skl"
     
     
     def bbttnn(self):
@@ -300,7 +295,6 @@ class mywindow(QtWidgets.QMainWindow, QtWidgets.QWidget):
         if direct:
             path_ = open('path.txt', "w", encoding="utf-8")
             path_.write(direct)
-            path_.close()
             self.fileModel = QtWidgets.QFileSystemModel(self)
             self.fileModel.setRootPath(direct)
             self.fileModel.setFilter(QtCore.QDir.NoDotAndDotDot | QtCore.QDir.Files)
